@@ -106,7 +106,7 @@ body{height:100dvh;min-height:0}
 .role-tab{flex:none;min-height:44px;padding:8px 15px;border:2px solid #e0e9df;border-bottom-width:4px;border-radius:15px;background:#fff;color:#647469;font-size:13px;font-weight:1000;white-space:nowrap}
 .role-tab[aria-pressed=true]{background:#e3f7e8;border-color:#a9dcb6;border-bottom-color:#83c596;color:#236b42}
 #wordGrid{padding-bottom:8px}
-#dragPreview{display:none;position:fixed;z-index:50;pointer-events:none;transform:translate(-50%,-50%);padding:9px 14px;border:2px solid #8bd19e;border-bottom-width:5px;border-radius:15px;background:#f0fbf2;color:#286c47;font-weight:1000;box-shadow:0 8px 24px #243d2c35;white-space:nowrap}
+.word-card{touch-action:pan-y}#dragPreview{display:none;position:fixed;z-index:50;pointer-events:none;transform:translate(-50%,-50%);padding:9px 14px;border:2px solid #8bd19e;border-bottom-width:5px;border-radius:15px;background:#f0fbf2;color:#286c47;font-weight:1000;box-shadow:0 8px 24px #243d2c35;white-space:nowrap}
 #dragPreview.visible{display:block}
 #composer.drop-ready{background:#dff6e5;box-shadow:0 -5px 24px #55bd7840}
 #composer.drop-ready .sentence{border-color:#58b978;background:#f4fff6}
@@ -150,7 +150,7 @@ const categories=[["all","⭐","Όλα"],["needs","🫶","Ανάγκες"],["foo
 const foodGroups=[["all","Όλα"],["fruit","Φρούτα"],["vegetable","Λαχανικά"],["meal","Φαγητά"],["drink","Ποτά"],["snack","Σνακ"]];
 const phrases=[["💧","Θέλω νερό",["Θέλω","Νερό"]],["🍎","Θέλω να φάω",["Θέλω","να φάω"]],["🚽","Θέλω τουαλέτα",["Θέλω","Τουαλέτα"]],["🆘","Χρειάζομαι βοήθεια",["Χρειάζομαι","Βοήθεια"]],["🫂","Θέλω μια αγκαλιά",["Θέλω","μια αγκαλιά"]],["🛑","Δεν θέλω άλλο",["Δεν θέλω","άλλο"]],["😴","Είμαι κουρασμένος",["Είμαι","Κουρασμένος"]],["😊","Είμαι χαρούμενος",["Είμαι","Χαρούμενος"]],["🏠","Θέλω να πάω σπίτι",["Θέλω","να πάω","Σπίτι"]],["🎮","Θέλω να παίξω",["Θέλω","να παίξω"]],["✋","Περίμενε λίγο",["Περίμενε","λίγο"]],["💚","Σε ευχαριστώ",["Σε","ευχαριστώ"]],["🤕","Κάτι με πονάει",["Κάτι","με πονάει"]],["🥛","Θέλω γάλα",["Θέλω","Γάλα"]],["🍌","Θέλω μπανάνα",["Θέλω","Μπανάνα"]],["❌","Όχι, ευχαριστώ",["Όχι","Ευχαριστώ"]]];
 const emojis=["💬","😊","😢","😠","🙏","💧","🍎","🍌","🍓","🍞","🥛","🧃","🍕","🍝","🥕","🚽","🧸","🏠","👩","👨","🆘","🎮","⚽","📚","🎵","🛏️","🌳","🚗","💚","✋","⭐","🐶","🐱","🍦","🥪","🧀","🥚","🍉","🍪"];
-let custom=readStore("mila-custom-v2",[]),hidden=new Set(readStore("mila-hidden-v2",[])),sentence=[],selectedEmoji="💬",activeRole="all",phrasesEnabled=localStorage.getItem("mila-phrases-enabled")!=="false";
+let custom=readStore("mila-custom-v2",[]),hidden=new Set(readStore("mila-hidden-v2",[])),sentence=[],selectedEmoji="💬",activeRole="all",phrasesEnabled=true;try{phrasesEnabled=localStorage.getItem("mila-phrases-enabled")!=="false"}catch{}
 const $=id=>document.getElementById(id);
 function readStore(key,fallback){try{const v=JSON.parse(localStorage.getItem(key)||"null");return Array.isArray(v)?v:fallback}catch{return fallback}}
 function saveStore(){try{localStorage.setItem("mila-custom-v2",JSON.stringify(custom));localStorage.setItem("mila-hidden-v2",JSON.stringify([...hidden]))}catch{toast("Δεν ήταν δυνατή η αποθήκευση στη συσκευή.")}}
@@ -182,7 +182,7 @@ function hideDragPreview() {preview.classList.remove("visible");$("composer").cl
 function touchPoint(e){return e.changedTouches&&e.changedTouches[0]}
 $("wordGrid").addEventListener("touchstart",e=>{
  const b=e.target.closest("[data-add]");if(!b)return;const w=words().find(x=>x.id===b.dataset.add);if(!w)return;
- const p=touchPoint(e);touchDrag={id:w.id,x:p.clientX,y:p.clientY,active:false};
+ const p=touchPoint(e);touchDrag={id:w.id,x:p.clientX,y:p.clientY,startX:p.clientX,startY:p.clientY,active:false};
  pressTimer=setTimeout(()=>{if(!touchDrag)return;touchDrag.active=true;showDragPreview(w,touchDrag.x,touchDrag.y);if(navigator.vibrate)navigator.vibrate(18)},260);
 },{passive:true});
 $("wordGrid").addEventListener("touchmove",e=>{
