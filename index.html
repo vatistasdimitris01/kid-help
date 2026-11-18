@@ -34,7 +34,7 @@ body{height:100dvh;min-height:0}
 .category .cat-icon{width:27px;height:27px;font-size:16px}
 .board-main{min-height:0;overflow:auto;overscroll-behavior:contain;width:100%;padding:0 1px 8px}
 .word-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(5px,1vw,10px)}
-.word-card{min-height:clamp(76px,13vh,125px);padding:6px 3px;gap:4px;border-radius:13px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.word-card{min-height:clamp(76px,13vh,125px);padding:6px 3px;gap:4px;border-radius:13px;touch-action:none;user-select:none;-webkit-user-select:none}
 .word-card .emoji{font-size:clamp(25px,4.5vw,43px)}
 .word-card .word{font-size:clamp(10px,1.55vw,16px);line-height:1.08}
 .composer{position:fixed;z-index:10;left:0;right:0;bottom:0;padding:9px max(10px,env(safe-area-inset-right)) max(9px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));background:#d9d9d9;border-top:1px solid #c8c8c8;box-shadow:0 -5px 18px #0000000c}
@@ -116,11 +116,11 @@ $("emojiPicker").addEventListener("click",e=>{const b=e.target.closest("[data-em
 document.querySelector(".nav").addEventListener("click",e=>{const b=e.target.closest("[data-page]");if(b)showPage(b.dataset.page)});
 $("categories").addEventListener("click",e=>{const b=e.target.closest("[data-category]");if(!b)return;category=b.dataset.category;foodGroup="all";renderBoard()});
 $("foodTabs").addEventListener("click",e=>{const b=e.target.closest("[data-food]");if(!b)return;foodGroup=b.dataset.food;renderBoard()});
-function addFromTarget(e){const b=e.target.closest("[data-add]");if(!b)return;const w=words().find(x=>x.id===b.dataset.add);if(w&&!hidden.has(w.id))addSentence(w)}
-let touchDrag=null;
-$("wordGrid").addEventListener("pointerdown",e=>{const b=e.target.closest("[data-add]");if(!b||e.pointerType==="mouse")return;const w=words().find(x=>x.id===b.dataset.add);if(w)touchDrag={id:w.id,x:e.clientX,y:e.clientY,moved:false}});
+function addFromTarget(e){if(suppressNextClick){suppressNextClick=false;return}const b=e.target.closest("[data-add]");if(!b)return;const w=words().find(x=>x.id===b.dataset.add);if(w&&!hidden.has(w.id))addSentence(w)}
+let touchDrag=null,suppressNextClick=false;
+$("wordGrid").addEventListener("pointerdown",e=>{const b=e.target.closest("[data-add]");if(!b||e.pointerType==="mouse")return;const w=words().find(x=>x.id===b.dataset.add);if(w){touchDrag={id:w.id,x:e.clientX,y:e.clientY,moved:false};try{b.setPointerCapture(e.pointerId)}catch{}}});
 $("wordGrid").addEventListener("pointermove",e=>{if(touchDrag&&Math.hypot(e.clientX-touchDrag.x,e.clientY-touchDrag.y)>18)touchDrag.moved=true});
-$("wordGrid").addEventListener("pointerup",e=>{if(!touchDrag)return;const d=touchDrag;touchDrag=null;if(!d.moved)return;const t=document.elementFromPoint(e.clientX,e.clientY);if(t&&t.closest("#composer")){const w=words().find(x=>x.id===d.id);if(w)addSentence(w)}});
+$("wordGrid").addEventListener("pointerup",e=>{if(!touchDrag)return;const d=touchDrag;touchDrag=null;if(!d.moved)return;const t=document.elementFromPoint(e.clientX,e.clientY);if(t&&t.closest("#composer")){const w=words().find(x=>x.id===d.id);if(w){addSentence(w);suppressNextClick=true;setTimeout(()=>suppressNextClick=false,350)}}});
 $("wordGrid").addEventListener("pointercancel",()=>{touchDrag=null});
 $("wordGrid").addEventListener("dragstart",e=>{const b=e.target.closest("[data-add]");if(b)e.dataTransfer.setData("text/plain",b.dataset.add)});
 $("composer").addEventListener("dragover",e=>{e.preventDefault()});
