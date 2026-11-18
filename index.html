@@ -127,6 +127,13 @@ body{height:100dvh;min-height:0}
 .role-tabs::-webkit-scrollbar,.board-main::-webkit-scrollbar,.manage-list::-webkit-scrollbar,.phrase-grid::-webkit-scrollbar,.composer .sentence::-webkit-scrollbar{display:none;width:0;height:0}
 @media(max-width:699px){.composer{bottom:calc(9px + env(safe-area-inset-bottom));width:calc(100% - 18px);padding:8px;border-radius:21px}.composer .sentence{min-height:55px}.composer .enter-speak{height:55px;width:55px;min-width:55px}}
 @media(orientation:landscape) and (max-height:600px){.composer{bottom:calc(6px + env(safe-area-inset-bottom));padding:5px 8px;width:min(680px,calc(100% - 18px))}.composer .sentence{min-height:43px;max-height:65px}.composer .enter-speak{height:44px;width:48px;min-width:48px}.topbar .round-btn{width:34px;height:34px}}
+
+/* Transparent, near-edge-to-edge sentence composer */
+.composer{left:1%;right:1%;width:98%;max-width:none;bottom:calc(6px + env(safe-area-inset-bottom));padding:0;background:transparent!important;background-color:transparent!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.composer .compose-line{width:100%;gap:8px}
+.composer .sentence{background:transparent!important;background-color:transparent!important;border:0!important;box-shadow:none!important;padding:7px 4px}
+@media(max-width:699px){.composer{left:1%;right:1%;width:98%;padding:0}.composer .sentence{background:transparent!important;border:0!important}}
+@media(orientation:landscape) and (max-height:600px){.composer{left:1%;right:1%;width:98%;padding:0}}
 </style>
 </head>
 <body>
