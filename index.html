@@ -225,5 +225,6 @@ if("serviceWorker" in navigator && location.protocol!=="file:"){window.addEventL
 </script>
 </body>
 </html>
-/* Keep the settings header pinned while the board content scrolls */
-.topbar{position:sticky;top:0;z-index:40;flex:none;isolation:isolate;background:rgba(244,247,241,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+
+/* Header stays in the app layout above the independently scrolling board */
+.topbar{position:relative;top:auto;z-index:2;flex:none;margin-bottom:2px}
