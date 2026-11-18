@@ -112,11 +112,26 @@ body{height:100dvh;min-height:0}
 #composer.drop-ready .sentence{border-color:#58b978;background:#f4fff6}
 @media(max-width:699px){#page-board .board-main{padding-bottom:calc(180px + env(safe-area-inset-bottom))}.role-tabs{gap:7px;padding-bottom:10px}.role-tab{min-height:44px;padding:8px 13px;font-size:12px}}
 @media(orientation:landscape) and (max-height:600px){#page-board .board-main{padding-bottom:calc(112px + env(safe-area-inset-bottom))}.role-tabs{padding:2px 3px 7px}.role-tab{min-height:35px;padding:5px 10px}}
+
+/* Floating, compact composer and uncluttered app header */
+.topbar{min-height:48px;height:48px;padding:4px 8px;display:flex;justify-content:flex-end;align-items:center;background:transparent;border:0;box-shadow:none}
+.topbar .identity{display:none}
+.topbar .head-actions{margin-left:auto}
+.topbar .round-btn{width:42px;height:42px;border-radius:15px;background:#fff;border:2px solid #e5ece4;border-bottom-width:4px}
+.composer{position:fixed;z-index:30;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));width:min(760px,calc(100% - 24px));padding:9px 10px;background:rgba(255,255,255,.96);border:2px solid #e2ebe1;border-bottom:5px solid #cddfce;border-radius:24px;box-shadow:0 9px 32px rgba(44,68,53,.16);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transition:background .15s,border-color .15s}
+.composer .compose-line{display:flex;align-items:center;gap:9px}
+.composer .sentence{min-height:58px;max-height:116px;overflow-y:auto;flex:1;display:flex;align-items:center;align-content:center;flex-wrap:wrap;gap:7px;padding:7px 9px;border:2px solid #e2ebe1;border-radius:16px;background:#fbfdfb}
+.composer .enter-speak{width:58px;height:58px;min-width:58px;border-radius:17px;font-size:27px;box-shadow:none}
+#page-board .board-main{padding-bottom:calc(130px + env(safe-area-inset-bottom))}
+.role-tabs,.board-main,.manage-list,.phrase-grid,.composer .sentence{scrollbar-width:none}
+.role-tabs::-webkit-scrollbar,.board-main::-webkit-scrollbar,.manage-list::-webkit-scrollbar,.phrase-grid::-webkit-scrollbar,.composer .sentence::-webkit-scrollbar{display:none;width:0;height:0}
+@media(max-width:699px){.composer{bottom:calc(9px + env(safe-area-inset-bottom));width:calc(100% - 18px);padding:8px;border-radius:21px}.composer .sentence{min-height:55px}.composer .enter-speak{height:55px;width:55px;min-width:55px}.topbar{height:44px;min-height:44px}}
+@media(orientation:landscape) and (max-height:600px){.composer{bottom:calc(6px + env(safe-area-inset-bottom));padding:5px 8px;width:min(680px,calc(100% - 18px))}.composer .sentence{min-height:43px;max-height:65px}.composer .enter-speak{height:44px;width:48px;min-width:48px}.topbar{height:38px;min-height:38px}.topbar .round-btn{width:34px;height:34px}}
 </style>
 </head>
 <body>
 <main class="app">
-<header class="topbar"><div class="identity"><div class="mark" aria-hidden="true">🗣️</div><div><h1>Μιλάω</h1><p>Δείχνω τις λέξεις μου. Λέω αυτό που θέλω.</p></div></div><div class="head-actions"><button class="round-btn" id="settingsBtn" aria-label="Ρυθμίσεις" title="Ρυθμίσεις">⚙️</button></div></header>
+<header class="topbar"><div class="head-actions"><button class="round-btn" id="settingsBtn" aria-label="Ρυθμίσεις" title="Ρυθμίσεις">⚙️</button></div></header>
 <nav class="nav" id="mainNav" aria-label="Μενού"><button class="nav-btn" data-page="phrases">💬 Φράσεις</button><button class="nav-btn" data-page="board" aria-current="page">📚 Όλες οι λέξεις</button></nav>
 <section class="page active" id="page-board">
 <section class="board-main"><div class="board-heading"><h2>Όλες οι λέξεις</h2><span id="wordCount"></span></div><div class="role-tabs" id="roleTabs" aria-label="Ομάδες λέξεων"><button class="role-tab" data-role="all" aria-pressed="true">✨ Όλες</button><button class="role-tab" data-role="pronoun" aria-pressed="false">👤 Ποιος;</button><button class="role-tab" data-role="verb" aria-pressed="false">⚡ Ρήμα</button><button class="role-tab" data-role="activity" aria-pressed="false">🎨 Δραστηριότητα</button><button class="role-tab" data-role="object" aria-pressed="false">🧸 Αντικείμενο</button></div><div class="word-grid" id="wordGrid"></div></section>
@@ -126,7 +141,7 @@ body{height:100dvh;min-height:0}
 <footer class="footer"><span>Κάθε λέξη είναι ένας τρόπος επικοινωνίας 💚</span><span>Ιδιωτικό • Χωρίς λογαριασμό</span></footer>
 </main>
 <dialog class="dialog" id="settingsDialog"><div class="dialog-inner"><div class="dialog-head"><h2>⚙️ Ρυθμίσεις γονέα</h2><button class="close" type="button" id="closeSettings" aria-label="Κλείσιμο">×</button></div><p class="notice">Πρόσθεσε δικές σου κάρτες, κρύψε λέξεις ή διέγραψε κάρτες που δεν χρειάζεσαι.</p><label class="setting-toggle" for="phrasesEnabled"><span><strong>💬 Καρτέλα «Φράσεις»</strong><small>Εμφάνιση ή απόκρυψη των έτοιμων φράσεων.</small></span><input type="checkbox" id="phrasesEnabled" checked><span class="toggle-ui" aria-hidden="true"></span></label><button class="save" type="button" id="openAddCard">＋ Προσθήκη νέας κάρτας</button><input class="search" id="manageSearch" type="search" placeholder="🔎 Αναζήτηση κάρτας…" aria-label="Αναζήτηση καρτών"><div class="parent-list" id="manageList"></div><p class="notice">Οι κάρτες αποθηκεύονται μόνο σε αυτή τη συσκευή. Δεν υπάρχει λογαριασμός ή διακομιστής.</p></div></dialog><dialog class="dialog" id="addDialog"><form class="dialog-inner" id="addForm" method="dialog"><div class="dialog-head"><h2>Νέα κάρτα</h2><button class="close" type="button" id="closeDialog" aria-label="Κλείσιμο">×</button></div><p class="notice">Αυτή η προσθήκη είναι για τον γονέα. Γράψε τη λέξη, διάλεξε κατηγορία και εικόνα.</p><div class="field"><label for="cardWord">Λέξη ή φράση</label><input id="cardWord" maxlength="42" placeholder="π.χ. Το αγαπημένο μου φαγητό" required></div><div class="field"><label for="cardRole">Ομάδα λέξης</label><select id="cardRole"><option value="pronoun">Ποιος; / Πρόσωπο</option><option value="verb">Ρήμα</option><option value="activity">Δραστηριότητα</option><option value="object" selected>Αντικείμενο / κάτι</option></select></div><div class="field"><label>Εικόνα</label><div class="emoji-picker" id="emojiPicker"></div></div><button class="save" id="saveCard" type="submit">＋ Προσθήκη στον πίνακα</button></form></dialog>
-<div class="composer" id="composer"><div class="compose-line"><div class="sentence" id="sentence" aria-live="polite"><span class="sentence-empty">Σύρε λέξεις εδώ για να φτιάξεις πρόταση…</span></div><button class="enter-speak" id="speak" aria-label="Εκφώνηση πρότασης" title="Εκφώνηση">↵</button></div></div><div class="toast" id="toast" role="status"></div><div id="dragPreview" aria-hidden="true"></div>
+<div class="composer" id="composer"><div class="compose-line"><div class="sentence" id="sentence" aria-live="polite"><span class="sentence-empty">Πάτησε ή σύρε λέξεις εδώ…</span></div><button class="enter-speak" id="speak" aria-label="Εκφώνηση πρότασης" title="Εκφώνηση">↵</button></div></div><div class="toast" id="toast" role="status"></div><div id="dragPreview" aria-hidden="true"></div>
 <script>
 const base=[
 ["people","👩","Μαμά","pink"],["people","👨","Μπαμπάς","blue"],["people","👧","Αδελφή","pink"],["people","👦","Αδελφός","blue"],["people","👶","Μωρό","yellow"],["people","👵","Γιαγιά","pink"],["people","👴","Παππούς","yellow"],["people","🧑‍🏫","Δάσκαλος","blue"],["people","🧒","Φίλος","green"],["people","👩","Εγώ","blue"],["people","👉","Εσύ","blue"],["people","👨‍👩‍👧","Οικογένεια","pink"],
@@ -143,8 +158,8 @@ const base=[
 ].map((x,i)=>({id:"base-"+i,cat:x[0],emoji:x[1],word:x[2],tone:x[3],sub:x[4]||"",builtin:true}));
 base.push(...[
  ["people","🙋","Εγώ","blue"],["people","👉","Εσύ","blue"],["people","👤","Αυτός","blue"],["people","👤","Αυτή","pink"],["people","👥","Εμείς","blue"],["people","👥","Εσείς","pink"],
- ["actions","💭","Μπορώ","green"],["actions","🧍","Είμαι","blue"],["actions","👐","Έχω","yellow"],["actions","🚶","Πάω","green"],["actions","🍽️","Τρώω","yellow"],["actions","🥤","Πίνω","blue"],
- ["activities","🎨","Ζωγραφίζω","yellow"],["activities","📖","Διαβάζω","blue"],["activities","💃","Χορεύω","pink"],["activities","🏃","Τρέχω","green"],["activities","🛁","Κάνω μπάνιο","blue"],["activities","🛝","Να παίξω","green"],["activities","🎲","Παίζω","lilac"],["activities","😴","Να κοιμηθώ","blue"]
+ ["actions","💪","Μπορώ","green"],["actions","🙂","Είμαι","blue"],["actions","👐","Έχω","yellow"],["actions","🚶","Πάω","green"],["actions","🍽️","Τρώω","yellow"],["actions","🥤","Πίνω","blue"],
+ ["activities","🖍️","Ζωγραφίζω","yellow"],["activities","📚","Διαβάζω","blue"],["activities","💃","Χορεύω","pink"],["activities","🏃","Τρέχω","green"],["activities","🛁","Κάνω μπάνιο","blue"],["activities","🛝","Παίζω έξω","green"],["activities","🎲","Παίζω","lilac"],["activities","😴","Κοιμάμαι","blue"]
 ].map((x,i)=>({id:"extra-"+i,cat:x[0],emoji:x[1],word:x[2],tone:x[3],sub:"",builtin:true})));
 const categories=[["all","⭐","Όλα"],["needs","🫶","Ανάγκες"],["food","🍓","Φαγητό"],["people","👨‍👩‍👧","Άνθρωποι"],["actions","🏃","Ενέργειες"],["feelings","😊","Συναισθήματα"],["places","📍","Μέρη"],["things","🧸","Αντικείμενα"],["yesno","💬","Απαντήσεις"]];
 const foodGroups=[["all","Όλα"],["fruit","Φρούτα"],["vegetable","Λαχανικά"],["meal","Φαγητά"],["drink","Ποτά"],["snack","Σνακ"]];
