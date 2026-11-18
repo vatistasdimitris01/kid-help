@@ -140,6 +140,16 @@ body{height:100dvh;min-height:0}
 .composer .sentence{display:flex!important;flex:1 1 0%!important;width:0!important;min-width:0!important;max-width:none!important;visibility:visible!important;opacity:1!important;overflow-x:auto!important}
 .composer .enter-speak{flex:0 0 58px!important}
 @media(min-width:700px){.composer .enter-speak{flex-basis:72px!important}}
+
+/* Separate white sentence field and speech action: clean floating layout */
+.composer{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.composer .compose-line{gap:12px!important;align-items:stretch!important}
+.composer .sentence{background:#fff!important;background-color:#fff!important;border:1.5px solid #e3eae3!important;border-bottom:3px solid #d7e2d7!important;border-radius:20px!important;box-shadow:0 4px 14px rgba(36,62,43,.09)!important;padding:10px 14px!important;min-height:60px!important}
+.composer .sentence-empty{color:#9aa79b!important}
+.composer .sentence-chip{border-radius:13px!important}
+.composer .enter-speak{align-self:stretch!important;flex:0 0 60px!important;width:60px!important;min-width:60px!important;height:auto!important;min-height:60px!important;border-radius:19px!important;background:#58cc78!important;border:1.5px solid #42b866!important;border-bottom:4px solid #269653!important;box-shadow:0 4px 12px rgba(38,150,83,.16)!important}
+@media(min-width:700px){.composer .sentence{min-height:68px!important;padding:12px 16px!important}.composer .enter-speak{flex-basis:68px!important;width:68px!important;min-width:68px!important;min-height:68px!important}}
+@media(max-width:699px){.composer .compose-line{gap:9px!important}.composer .sentence{min-height:58px!important;padding:8px 11px!important;border-radius:17px!important}.composer .enter-speak{flex-basis:58px!important;width:58px!important;min-width:58px!important;min-height:58px!important;border-radius:17px!important}}
 </style>
 </head>
 <body>
