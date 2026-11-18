@@ -134,6 +134,12 @@ body{height:100dvh;min-height:0}
 .composer .sentence{background:transparent!important;background-color:transparent!important;border:0!important;box-shadow:none!important;padding:7px 4px}
 @media(max-width:699px){.composer{left:1%;right:1%;width:98%;padding:0}.composer .sentence{background:transparent!important;border:0!important}}
 @media(orientation:landscape) and (max-height:600px){.composer{left:1%;right:1%;width:98%;padding:0}}
+/* Fix composer alignment: cancel the old centering transform so the input stays on-screen */
+.composer{position:fixed!important;left:1%!important;right:1%!important;top:auto!important;transform:none!important;width:98%!important;max-width:none!important;display:block!important;overflow:visible!important}
+.composer .compose-line{display:flex!important;width:100%!important;max-width:none!important;min-width:0!important;align-items:center!important}
+.composer .sentence{display:flex!important;flex:1 1 0%!important;width:0!important;min-width:0!important;max-width:none!important;visibility:visible!important;opacity:1!important;overflow-x:auto!important}
+.composer .enter-speak{flex:0 0 58px!important}
+@media(min-width:700px){.composer .enter-speak{flex-basis:72px!important}}
 </style>
 </head>
 <body>
