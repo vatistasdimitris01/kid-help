@@ -1,24 +1,29 @@
-# Μιλάω • I Can Say It
+# Μιλάω — Πίνακας επικοινωνίας
 
-A responsive, bilingual Greek/English AAC (augmentative and alternative communication) web app. Designed for children who communicate by selecting words and building sentences.
+Ελληνική εφαρμογή AAC (επαυξητικής και εναλλακτικής επικοινωνίας) με εικόνες, λέξεις και εκφώνηση. Σχεδιασμένη για παιδιά που επικοινωνούν επιλέγοντας κάρτες και συνδυάζοντάς τες σε προτάσεις.
 
-## Features
-- Greek and English interface and vocabulary
-- Picture-based communication tiles and category filters
-- Sentence strip: tap words to add them; tap a sentence chip to remove it
-- Native browser text-to-speech using Greek (`el-GR`) and English (`en-US`) voices
-- Add a custom word for the current session
-- Responsive portrait and landscape layouts for phones, tablets and desktops
-- No account, database, analytics, API keys, or saved history
+## Λειτουργίες
+- Περιβάλλον αποκλειστικά στα ελληνικά.
+- Μεγάλος πίνακας καρτών με κατηγορίες: ανάγκες, φαγητό, άνθρωποι, ενέργειες, συναισθήματα, μέρη, αντικείμενα και απαντήσεις.
+- Αναλυτικός κατάλογος τροφίμων: φρούτα, λαχανικά, φαγητά, ποτά και σνακ.
+- Έτοιμες καθημερινές φράσεις.
+- Δημιουργία πρότασης, αφαίρεση λέξης, αναίρεση και εκφώνηση στα ελληνικά.
+- Κουμπί «+» για γονέα: προσθήκη προσαρμοσμένης κάρτας με emoji και κατηγορία.
+- Γονικός κατάλογος για απόκρυψη/εμφάνιση βασικών λέξεων και διαγραφή προσωπικών καρτών.
+- Διάταξη για κινητά, tablet και υπολογιστές, σε κατακόρυφο και οριζόντιο προσανατολισμό.
+- Χωρίς πληκτρολόγιο επικοινωνίας στην οθόνη, λογαριασμό, βάση δεδομένων ή ιστορικό.
 
-## Run locally
-Open `index.html` in a browser, or serve this folder with any static file server.
+## Αποθήκευση και ιδιωτικότητα
+Οι προσωπικές κάρτες και οι λέξεις που αποκρύπτει ο γονέας αποθηκεύονται τοπικά στο πρόγραμμα περιήγησης της συσκευής μέσω localStorage. Δεν αποστέλλονται σε διακομιστή. Δεν αποθηκεύεται ιστορικό προτάσεων.
 
-## Deploy to Vercel
-Import this GitHub repository into Vercel. It is a static site; no build command, install command, environment variables, or database are required. Vercel will serve `index.html` from the project root.
+## Τοπική εκτέλεση
+Άνοιξε το `index.html` σε πρόγραμμα περιήγησης ή χρησιμοποίησε οποιονδήποτε απλό static file server.
 
-## Speech support
-Speech uses the browser's built-in Web Speech API. Voice availability depends on the operating system, browser, installed voices and device settings. On iOS/iPadOS, speech may require a user tap and the device's speech voices to be enabled. The app does not send text to a third-party service.
+## Ανάπτυξη στο Vercel
+Κάνε import το repository στο Vercel. Είναι στατικό site: δεν χρειάζεται build command, install command, μεταβλητές περιβάλλοντος ή βάση δεδομένων. Το Vercel σερβίρει το `index.html` από τον βασικό φάκελο.
 
-## Accessibility note
-This is a communication aid, not a replacement for an individualized AAC assessment or speech-language therapy. Keep important words available and customize vocabulary to the child's everyday communication needs.
+## Εκφώνηση
+Η εκφώνηση χρησιμοποιεί το ενσωματωμένο Web Speech API του προγράμματος περιήγησης με γλώσσα `el-GR`. Η διαθεσιμότητα και η ποιότητα της ελληνικής φωνής εξαρτώνται από τη συσκευή, το λειτουργικό, το πρόγραμμα περιήγησης και τις εγκατεστημένες φωνές. Το κείμενο δεν αποστέλλεται σε υπηρεσία τρίτου.
+
+## Σημείωση
+Η εφαρμογή είναι εργαλείο επικοινωνίας και δεν αντικαθιστά εξατομικευμένη αξιολόγηση AAC ή λογοθεραπευτική υποστήριξη. Οι λέξεις που είναι σημαντικές για το παιδί πρέπει να παραμένουν εύκολα προσβάσιμες.
