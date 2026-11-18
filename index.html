@@ -228,3 +228,8 @@ if("serviceWorker" in navigator && location.protocol!=="file:"){window.addEventL
 
 /* Header stays in the app layout above the independently scrolling board */
 .topbar{position:relative;top:auto;z-index:2;flex:none;margin-bottom:2px}
+
+/* Minimal floating settings control; header itself has no visible surface */
+.topbar{background:transparent!important;background-color:transparent!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;padding:4px 8px}
+.topbar .round-btn{background:rgba(255,255,255,.94);border:1px solid #e5ece4;border-bottom:4px solid #d7e3d7;border-radius:16px;box-shadow:0 5px 14px rgba(38,64,45,.14),0 1px 3px rgba(38,64,45,.08);transition:transform .14s,box-shadow .14s}
+.topbar .round-btn:active{transform:translateY(2px);box-shadow:0 2px 7px rgba(38,64,45,.12);border-bottom-width:2px}
